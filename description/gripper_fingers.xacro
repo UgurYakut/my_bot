@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <xacro:macro name="finger" params="id yaw">
+                            <!-- FINGER-->    
+    <!-- BOTTOM-->                    
+    <joint name="${id}_finger_bottom_joint" type="revolute" >
+        <limit effort="5" velocity="2.1750" lower="-0.5" upper="0.5"/>
+        <parent link="last_arm_link" />
+        <child link="${id}_finger_bottom_link" />
+        <origin xyz="0 0 0.3" rpy="0 ${pi/4} ${yaw}"/>
+        <axis xyz="0 1 0" />
+    </joint> 
+    <link name="${id}_finger_bottom_link">
+        <visual>
+            <origin xyz="0 0 0.15" />
+            <geometry>
+                <box size="0.025 0.025 0.3"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <!-- TOP--> 
+    <joint name="${id}_finger_top_joint" type="fixed" >
+        <parent link="${id}_finger_bottom_link" />
+        <child link="${id}_finger_top_link" />
+        <origin xyz="0 0 0.3" rpy="0 -${pi/2.5} 0"/>
+    </joint> 
+    <link name="${id}_finger_top_link">
+        <visual>
+            <origin xyz="0 0 0.15" rpy="0 0 0 "/>
+            <geometry>
+                <box size="0.025 0.025 0.3"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    </xacro:macro>  
+
+</robot>
